@@ -1,0 +1,199 @@
+[jisus@linuxjisus ~]$ sudo mysql
+[sudo] contraseña para jisus: 
+mysql: Deprecated program name. It will be removed in a future release, use '/usr/bin/mariadb' instead
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 3
+Server version: 12.3.2-MariaDB Arch Linux
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| test               |
+| world              |
++--------------------+
+7 rows in set (0.143 sec)
+
+MariaDB [(none)]> use sakila;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+MariaDB [sakila]> show engines;
++--------------------+---------+-------------------------------------------------------------------------------------------------+--------------+------+------------+
+| Engine             | Support | Comment                                                                                         | Transactions | XA   | Savepoints |
++--------------------+---------+-------------------------------------------------------------------------------------------------+--------------+------+------------+
+| MEMORY             | YES     | Hash based, stored in memory, useful for temporary tables                                       | NO           | NO   | NO         |
+| CSV                | YES     | Stores tables as CSV files                                                                      | NO           | NO   | NO         |
+| PERFORMANCE_SCHEMA | YES     | Performance Schema                                                                              | NO           | NO   | NO         |
+| Aria               | YES     | Crash-safe tables with MyISAM heritage. Used for internal temporary tables and privilege tables | NO           | NO   | NO         |
+| MyISAM             | YES     | Non-transactional engine with good performance and small data footprint                         | NO           | NO   | NO         |
+| MRG_MyISAM         | YES     | Collection of identical MyISAM tables                                                           | NO           | NO   | NO         |
+| InnoDB             | DEFAULT | Supports transactions, row-level locking, foreign keys and encryption for tables                | YES          | YES  | YES        |
+| SEQUENCE           | YES     | Generated tables filled with sequential values                                                  | YES          | NO   | YES        |
++--------------------+---------+-------------------------------------------------------------------------------------------------+--------------+------+------------+
+8 rows in set (0.001 sec)
+
+MariaDB [sakila]> create database t1;
+Query OK, 1 row affected (0.034 sec)
+
+MariaDB [sakila]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| t1                 |
+| test               |
+| world              |
++--------------------+
+8 rows in set (0.001 sec)
+
+MariaDB [sakila]> use t1;
+Database changed
+MariaDB [t1]> show tables;
+Empty set (0.001 sec)
+
+MariaDB [t1]> show create database t1;
++----------+-------------------------------------------------------------------------------------------+
+| Database | Create Database                                                                           |
++----------+-------------------------------------------------------------------------------------------+
+| t1       | CREATE DATABASE `t1` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */ |
++----------+-------------------------------------------------------------------------------------------+
+1 row in set (0.000 sec)
+
+MariaDB [t1]> show character set;
++----------+-----------------------------+-----------------------+--------+
+| Charset  | Description                 | Default collation     | Maxlen |
++----------+-----------------------------+-----------------------+--------+
+| big5     | Big5 Traditional Chinese    | big5_chinese_ci       |      2 |
+| dec8     | DEC West European           | dec8_swedish_ci       |      1 |
+| cp850    | DOS West European           | cp850_general_ci      |      1 |
+| hp8      | HP West European            | hp8_english_ci        |      1 |
+| koi8r    | KOI8-R Relcom Russian       | koi8r_general_ci      |      1 |
+| latin1   | cp1252 West European        | latin1_swedish_ci     |      1 |
+| latin2   | ISO 8859-2 Central European | latin2_general_ci     |      1 |
+| swe7     | 7bit Swedish                | swe7_swedish_ci       |      1 |
+| ascii    | US ASCII                    | ascii_general_ci      |      1 |
+| ujis     | EUC-JP Japanese             | ujis_japanese_ci      |      3 |
+| sjis     | Shift-JIS Japanese          | sjis_japanese_ci      |      2 |
+| hebrew   | ISO 8859-8 Hebrew           | hebrew_general_ci     |      1 |
+| tis620   | TIS620 Thai                 | tis620_thai_ci        |      1 |
+| euckr    | EUC-KR Korean               | euckr_korean_ci       |      2 |
+| koi8u    | KOI8-U Ukrainian            | koi8u_general_ci      |      1 |
+| gb2312   | GB2312 Simplified Chinese   | gb2312_chinese_ci     |      2 |
+| greek    | ISO 8859-7 Greek            | greek_general_ci      |      1 |
+| cp1250   | Windows Central European    | cp1250_general_ci     |      1 |
+| gbk      | GBK Simplified Chinese      | gbk_chinese_ci        |      2 |
+| latin5   | ISO 8859-9 Turkish          | latin5_turkish_ci     |      1 |
+| armscii8 | ARMSCII-8 Armenian          | armscii8_general_ci   |      1 |
+| utf8mb3  | UTF-8 Unicode               | utf8mb3_uca1400_ai_ci |      3 |
+| ucs2     | UCS-2 Unicode               | ucs2_uca1400_ai_ci    |      2 |
+| cp866    | DOS Russian                 | cp866_general_ci      |      1 |
+| keybcs2  | DOS Kamenicky Czech-Slovak  | keybcs2_general_ci    |      1 |
+| macce    | Mac Central European        | macce_general_ci      |      1 |
+| macroman | Mac West European           | macroman_general_ci   |      1 |
+| cp852    | DOS Central European        | cp852_general_ci      |      1 |
+| latin7   | ISO 8859-13 Baltic          | latin7_general_ci     |      1 |
+| utf8mb4  | UTF-8 Unicode               | utf8mb4_uca1400_ai_ci |      4 |
+| cp1251   | Windows Cyrillic            | cp1251_general_ci     |      1 |
+| utf16    | UTF-16 Unicode              | utf16_uca1400_ai_ci   |      4 |
+| utf16le  | UTF-16LE Unicode            | utf16le_general_ci    |      4 |
+| cp1256   | Windows Arabic              | cp1256_general_ci     |      1 |
+| cp1257   | Windows Baltic              | cp1257_general_ci     |      1 |
+| utf32    | UTF-32 Unicode              | utf32_uca1400_ai_ci   |      4 |
+| binary   | Binary pseudo charset       | binary                |      1 |
+| geostd8  | GEOSTD8 Georgian            | geostd8_general_ci    |      1 |
+| cp932    | SJIS for Windows Japanese   | cp932_japanese_ci     |      2 |
+| eucjpms  | UJIS for Windows Japanese   | eucjpms_japanese_ci   |      3 |
++----------+-----------------------------+-----------------------+--------+
+40 rows in set (0.001 sec)
+
+MariaDB [t1]> show collection where charset=' utf16';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'collection where charset=' utf16'' at line 1
+MariaDB [t1]> show collection where charset = "utf16";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'collection where charset = "utf16"' at line 1
+MariaDB [t1]> show collation where charset = "utf16";
++----------------------------+---------+------+---------+----------+---------+---------------+
+| Collation                  | Charset | Id   | Default | Compiled | Sortlen | Pad_attribute |
++----------------------------+---------+------+---------+----------+---------+---------------+
+| utf16_general_ci           | utf16   |   54 |         | Yes      |       1 | PAD SPACE     |
+| utf16_bin                  | utf16   |   55 |         | Yes      |       1 | PAD SPACE     |
+| utf16_unicode_ci           | utf16   |  101 |         | Yes      |       8 | PAD SPACE     |
+| utf16_icelandic_ci         | utf16   |  102 |         | Yes      |       8 | PAD SPACE     |
+| utf16_latvian_ci           | utf16   |  103 |         | Yes      |       8 | PAD SPACE     |
+| utf16_romanian_ci          | utf16   |  104 |         | Yes      |       8 | PAD SPACE     |
+| utf16_slovenian_ci         | utf16   |  105 |         | Yes      |       8 | PAD SPACE     |
+| utf16_polish_ci            | utf16   |  106 |         | Yes      |       8 | PAD SPACE     |
+| utf16_estonian_ci          | utf16   |  107 |         | Yes      |       8 | PAD SPACE     |
+| utf16_spanish_ci           | utf16   |  108 |         | Yes      |       8 | PAD SPACE     |
+| utf16_swedish_ci           | utf16   |  109 |         | Yes      |       8 | PAD SPACE     |
+| utf16_turkish_ci           | utf16   |  110 |         | Yes      |       8 | PAD SPACE     |
+| utf16_czech_ci             | utf16   |  111 |         | Yes      |       8 | PAD SPACE     |
+| utf16_danish_ci            | utf16   |  112 |         | Yes      |       8 | PAD SPACE     |
+| utf16_lithuanian_ci        | utf16   |  113 |         | Yes      |       8 | PAD SPACE     |
+| utf16_slovak_ci            | utf16   |  114 |         | Yes      |       8 | PAD SPACE     |
+| utf16_spanish2_ci          | utf16   |  115 |         | Yes      |       8 | PAD SPACE     |
+| utf16_roman_ci             | utf16   |  116 |         | Yes      |       8 | PAD SPACE     |
+| utf16_persian_ci           | utf16   |  117 |         | Yes      |       8 | PAD SPACE     |
+| utf16_esperanto_ci         | utf16   |  118 |         | Yes      |       8 | PAD SPACE     |
+| utf16_hungarian_ci         | utf16   |  119 |         | Yes      |       8 | PAD SPACE     |
+| utf16_sinhala_ci           | utf16   |  120 |         | Yes      |       8 | PAD SPACE     |
+| utf16_german2_ci           | utf16   |  121 |         | Yes      |       8 | PAD SPACE     |
+| utf16_croatian_mysql561_ci | utf16   |  122 |         | Yes      |       8 | PAD SPACE     |
+| utf16_unicode_520_ci       | utf16   |  123 |         | Yes      |       8 | PAD SPACE     |
+| utf16_vietnamese_ci        | utf16   |  124 |         | Yes      |       8 | PAD SPACE     |
+| utf16_croatian_ci          | utf16   |  672 |         | Yes      |       8 | PAD SPACE     |
+| utf16_myanmar_ci           | utf16   |  673 |         | Yes      |       8 | PAD SPACE     |
+| utf16_thai_520_w2          | utf16   |  674 |         | Yes      |       4 | PAD SPACE     |
+| utf16_general_nopad_ci     | utf16   | 1078 |         | Yes      |       1 | NO PAD        |
+| utf16_nopad_bin            | utf16   | 1079 |         | Yes      |       1 | NO PAD        |
+| utf16_unicode_nopad_ci     | utf16   | 1125 |         | Yes      |       8 | NO PAD        |
+| utf16_unicode_520_nopad_ci | utf16   | 1147 |         | Yes      |       8 | NO PAD        |
++----------------------------+---------+------+---------+----------+---------+---------------+
+33 rows in set (0.003 sec)
+
+MariaDB [t1]> show create database t1;
++----------+-------------------------------------------------------------------------------------------+
+| Database | Create Database                                                                           |
++----------+-------------------------------------------------------------------------------------------+
+| t1       | CREATE DATABASE `t1` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */ |
++----------+-------------------------------------------------------------------------------------------+
+1 row in set (0.000 sec)
+
+MariaDB [t1]> drop database t1;
+Query OK, 0 rows affected (0.122 sec)
+
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| test               |
+| world              |
++--------------------+
+7 rows in set (0.001 sec)
+
+MariaDB [(none)]> create database t1;
+Query OK, 1 row affected (0.001 sec)
+
+MariaDB [(none)]> use t1;
+Database changed
+MariaDB [t1]> ^C
+MariaDB [t1]> 
