@@ -1,0 +1,208 @@
+ isus@linuxjisus ~]$ opencode
+[jisus@linuxjisus ~]$ sudo mysql
+[sudo] contraseña para jisus: 
+mysql: Deprecated program name. It will be removed in a future release, use '/usr/bin/mariadb' instead
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 3
+Server version: 12.3.2-MariaDB Arch Linux
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> show databases
+    -> show databases;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'show databases' at line 2
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| t1                 |
+| test               |
+| world              |
++--------------------+
+8 rows in set (0.346 sec)
+
+MariaDB [(none)]> use t1;
+Database changed
+MariaDB [t1]> create table Persona;
+ERROR 1113 (42000): A table must have at least 1 column
+MariaDB [t1]>  create table Persona(
+    -> id_persona int not null auto_increment key,
+    -> nombre varchar(50) not null,
+    -> ap_paterno varchar(50) not null,
+    -> ap_materno varchar(50) null,
+    -> fecha_nac date not null);
+Query OK, 0 rows affected (0.203 sec)
+
+MariaDB [t1]> show tables;
++--------------+
+| Tables_in_t1 |
++--------------+
+| Persona      |
++--------------+
+1 row in set (0.001 sec)
+
+MariaDB [t1]> show create table persona;
+ERROR 1146 (42S02): Table 't1.persona' doesn't exist
+MariaDB [t1]> show create table Persona;
++---------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table   | Create Table                                                                                                                                                                                                                                                                                                         |
++---------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Persona | CREATE TABLE `Persona` (
+  `id_persona` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(50) NOT NULL,
+  `ap_paterno` varchar(50) NOT NULL,
+  `ap_materno` varchar(50) DEFAULT NULL,
+  `fecha_nac` date NOT NULL,
+  PRIMARY KEY (`id_persona`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci |
++---------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.001 sec)
+
+MariaDB [t1]> desc persona;
+ERROR 1146 (42S02): Table 't1.persona' doesn't exist
+MariaDB [t1]> desc Persona;
++------------+-------------+------+-----+---------+----------------+
+| Field      | Type        | Null | Key | Default | Extra          |
++------------+-------------+------+-----+---------+----------------+
+| id_persona | int(11)     | NO   | PRI | NULL    | auto_increment |
+| nombre     | varchar(50) | NO   |     | NULL    |                |
+| ap_paterno | varchar(50) | NO   |     | NULL    |                |
+| ap_materno | varchar(50) | YES  |     | NULL    |                |
+| fecha_nac  | date        | NO   |     | NULL    |                |
++------------+-------------+------+-----+---------+----------------+
+5 rows in set (0.001 sec)
+
+MariaDB [t1]> drop table Persona;
+Query OK, 0 rows affected (0.373 sec)
+
+MariaDB [t1]> show tables;
+Empty set (0.001 sec)
+
+MariaDB [t1]> CREATE TABLE `Persona` (
+    ->   `id_persona` int(11) NOT NULL AUTO_INCREMENT,
+    ->   `nombre` varchar(50) NOT NULL,
+    ->   `ap_paterno` varchar(50) NOT NULL,
+    ->   `ap_materno` varchar(50) DEFAULT NULL,
+    ->   `fecha_nac` date NOT NULL,
+    ->   PRIMARY KEY (`id_persona`)
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 7
+MariaDB [t1]> CREATE TABLE `Persona` (
+    ->     ->   `id_persona` int(11) NOT NULL AUTO_INCREMENT,
+    ->     ->   `nombre` varchar(50) NOT NULL,
+    ->     ->   `ap_paterno` varchar(50) NOT NULL,
+    ->     ->   `ap_materno` varchar(50) DEFAULT NULL,
+    ->     ->   `fecha_nac` date NOT NULL,
+    ->     ->   PRIMARY KEY (`id_persona`)
+[1]+  Detenido                   sudo mysql
+[jisus@linuxjisus ~]$ sudo mysql
+[sudo] contraseña para jisus: 
+mysql: Deprecated program name. It will be removed in a future release, use '/usr/bin/mariadb' instead
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 4
+Server version: 12.3.2-MariaDB Arch Linux
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> use t1;
+Database changed
+MariaDB [t1]> ^C
+MariaDB [t1]> create table Persona(
+    ->     -> id_persona int not null auto_increment key,
+    ->     -> nombre varchar(50) not null,
+    ->     -> ap_paterno varchar(50) not null,
+    ->     -> ap_materno varchar(50) null,
+    ->     -> fecha_nac date not null);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '-> id_persona int not null auto_increment key,
+    -> nombre varchar(50) not ...' at line 2
+MariaDB [t1]> create table Persona(    -> id_persona int not null auto_increment key,    -> nombre varchar(50) not null,    -> ap_paterno varchar(50) not null,    -> ap_materno varchar(50) null,    -> fecha_nac date not null);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '-> id_persona int not null auto_increment key,    -> nombre varchar(50) not n...' at line 1
+MariaDB [t1]> create table Persona(
+    ->     -> id_persona int not null auto_increment key,
+    ->     -> nombre varchar(50) not null,
+    ->     -> ap_paterno varchar(50) not null,
+    ->     -> ap_materno varchar(50) null,
+    ->     -> ap_materno varchar(50) null,
+[2]+  Detenido                   sudo mysql
+[jisus@linuxjisus ~]$ sudo mysql
+mysql: Deprecated program name. It will be removed in a future release, use '/usr/bin/mariadb' instead
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 5
+Server version: 12.3.2-MariaDB Arch Linux
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> use t1
+Database changed
+MariaDB [t1]> uset1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'uset1' at line 1
+MariaDB [t1]> use t1;
+Database changed
+MariaDB [t1]> create table Persona(
+    ->     -> id_persona int not null auto_increment key,
+    ->     -> nombre varchar(50) not null,
+    ->     -> ap_paterno varchar(50) not null,
+    ->     -> ap_materno varchar(50) null,
+    ->     -> fecha_nac date not null);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '-> id_persona int not null auto_increment key,
+    -> nombre varchar(50) not ...' at line 2
+MariaDB [t1]> create table Persona ( id_persona int not null auto_increment key,  nombre varchar (50) not null, ap_paterno varchar(50) not null, ap_materno varchar(50) null, fecha_nac date not null);
+Query OK, 0 rows affected (0.313 sec)
+
+MariaDB [t1]> insert into Persona
+    -> value(1,"juan","perez","jolote","1970-11-12");
+Query OK, 1 row affected (0.266 sec)
+
+MariaDB [t1]> select * from Persona;
++------------+--------+------------+------------+------------+
+| id_persona | nombre | ap_paterno | ap_materno | fecha_nac  |
++------------+--------+------------+------------+------------+
+|          1 | juan   | perez      | jolote     | 1970-11-12 |
++------------+--------+------------+------------+------------+
+1 row in set (0.001 sec)
+
+MariaDB [t1]> insert into Persona value(1,"juan","perez","jolote","1970-11-12");
+ERROR 1062 (23000): Duplicate entry '1' for key 'PRIMARY'
+MariaDB [t1]> insert into Persona value(2,"juan","perez","jolote","1970-11-12");
+Query OK, 1 row affected (0.071 sec)
+
+MariaDB [t1]> select * from Persona;
++------------+--------+------------+------------+------------+
+| id_persona | nombre | ap_paterno | ap_materno | fecha_nac  |
++------------+--------+------------+------------+------------+
+|          1 | juan   | perez      | jolote     | 1970-11-12 |
+|          2 | juan   | perez      | jolote     | 1970-11-12 |
++------------+--------+------------+------------+------------+
+2 rows in set (0.001 sec)
+
+MariaDB [t1]> insert into Persona(
+    -> nombre,ap_paterno,fecha_nac)
+    -> value("pedro","paramo","1920-10-23");
+Query OK, 1 row affected (0.013 sec)
+
+MariaDB [t1]> select * from Persona;
++------------+--------+------------+------------+------------+
+| id_persona | nombre | ap_paterno | ap_materno | fecha_nac  |
++------------+--------+------------+------------+------------+
+|          1 | juan   | perez      | jolote     | 1970-11-12 |
+|          2 | juan   | perez      | jolote     | 1970-11-12 |
+|          3 | pedro  | paramo     | NULL       | 1920-10-23 |
++------------+--------+------------+------------+------------+
+3 rows in set (0.001 sec)
+
+MariaDB [t1]> insert into Persona(ap_paterno,fecha_nac)
+    -> value("paramo","1954-11-25");
+ERROR 1364 (HY000): Field 'nombre' doesn't have a default value
+MariaDB [t1]> ^C
+MariaDB [t1]> 
