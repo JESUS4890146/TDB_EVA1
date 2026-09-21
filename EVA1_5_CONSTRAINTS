@@ -1,0 +1,59 @@
+[jisus@linuxjisus ~]$ sudo mysql;
+mysql: Deprecated program name. It will be removed in a future release, use '/usr/bin/mariadb' instead
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 5
+Server version: 12.3.2-MariaDB Arch Linux
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> use t1;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+MariaDB [t1]> create table playera (    id_playera int not null primary key auto_increment,    marca varchar(50) not null,    modelo varchar(50) not null,    material varchar(50) not null,    talla enum('x-small', 'small', 'medium', 'large', 'x-large', 'xx-large'));
+Query OK, 0 rows affected (0.196 sec)
+
+MariaDB [t1]> insert into playera (marca, modelo, material, talla) values ('nike', 'pro-fit', 'poliester', 'medium');
+Query OK, 1 row affected (0.041 sec)
+
+MariaDB [t1]> insert into playera (marca, modelo, material, talla) values ('nike', 'pro-fit', 'poliester', 'mediana');select * from playera;
+ERROR 1265 (01000): Data truncated for column 'talla' at row 1
++------------+-------+---------+-----------+--------+
+| id_playera | marca | modelo  | material  | talla  |
++------------+-------+---------+-----------+--------+
+|          1 | nike  | pro-fit | poliester | medium |
++------------+-------+---------+-----------+--------+
+1 row in set (0.000 sec)
+
+MariaDB [t1]> create table empleado (    id_empleado int not null primary key auto_increment,    nombre varchar(50) not null,    apellidos varchar(50) not null,    salario decimal(10,2) check (salario > 0));
+Query OK, 0 rows affected (0.161 sec)
+
+MariaDB [t1]> insert into empleado (nombre, apellidos, salario) values ('carlos', 'perez', 3500.50);
+Query OK, 1 row affected (0.082 sec)
+
+MariaDB [t1]> select * from empleado;
++-------------+--------+-----------+---------+
+| id_empleado | nombre | apellidos | salario |
++-------------+--------+-----------+---------+
+|           1 | carlos | perez     | 3500.50 |
++-------------+--------+-----------+---------+
+1 row in set (0.001 sec)
+
+MariaDB [t1]> create table vehiculo2 (    id_vehiculo int not null primary key auto_increment,    color enum('azul', 'blanco', 'rojo'),    precio int check (precio > 0 and precio < 1000000),    marca varchar(50) not null);
+Query OK, 0 rows affected (0.184 sec)
+
+MariaDB [t1]> insert into vehiculo2 (color, precio, marca) values ('azul', 450000, 'ford');
+Query OK, 1 row affected (0.035 sec)
+
+MariaDB [t1]> select * from vehiculo2;
++-------------+-------+--------+-------+
+| id_vehiculo | color | precio | marca |
++-------------+-------+--------+-------+
+|           1 | azul  | 450000 | ford  |
++-------------+-------+--------+-------+
+1 row in set (0.000 sec)
+
+MariaDB [t1]> 
