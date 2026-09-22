@@ -1,0 +1,254 @@
+[jisus@linuxjisus ~]$ sudo mysql
+[sudo] contraseña para jisus: 
+mysql: Deprecated program name. It will be removed in a future release, use '/usr/bin/mariadb' instead
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 3
+Server version: 12.3.2-MariaDB Arch Linux
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> use t1;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+MariaDB [t1]> show tables;
++----------------+
+| Tables_in_t1   |
++----------------+
+| Persona        |
+| copia_Persona  |
+| copia_actor    |
+| customer2      |
+| empleado       |
+| persona_datos  |
+| persona_datos2 |
+| playera        |
+| vehiculo       |
+| vehiculo2      |
++----------------+
+10 rows in set (0.001 sec)
+
+MariaDB [t1]> desc Persona;
++------------+-------------+------+-----+---------+----------------+
+| Field      | Type        | Null | Key | Default | Extra          |
++------------+-------------+------+-----+---------+----------------+
+| id_persona | int(11)     | NO   | PRI | NULL    | auto_increment |
+| nombre     | varchar(50) | NO   |     | NULL    |                |
+| ap_paterno | varchar(50) | NO   |     | NULL    |                |
+| ap_materno | varchar(50) | YES  |     | NULL    |                |
+| fecha_nac  | date        | NO   |     | NULL    |                |
++------------+-------------+------+-----+---------+----------------+
+5 rows in set (0.001 sec)
+
+MariaDB [t1]> create table persona_mod(
+    -> id int not null auto_increment,
+    -> nom varchar(10),
+    -> apellido varchar(10));
+ERROR 1075 (42000): Incorrect table definition; there can be only one auto column and it must be defined as a key
+MariaDB [t1]> create table persona_mod(
+    -> id int not null key auto_increment,
+    -> nom varchar(10),
+    -> apell varchar(10));
+Query OK, 0 rows affected (0.148 sec)
+
+MariaDB [t1]> desc persona_mod;
++-------+-------------+------+-----+---------+----------------+
+| Field | Type        | Null | Key | Default | Extra          |
++-------+-------------+------+-----+---------+----------------+
+| id    | int(11)     | NO   | PRI | NULL    | auto_increment |
+| nom   | varchar(10) | YES  |     | NULL    |                |
+| apell | varchar(10) | YES  |     | NULL    |                |
++-------+-------------+------+-----+---------+----------------+
+3 rows in set (0.001 sec)
+
+MariaDB [t1]> alter table persona_mod
+    -> add fecha_nac date not null after id;
+Query OK, 0 rows affected (0.492 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [t1]> desc persona_mod;
++-----------+-------------+------+-----+---------+----------------+
+| Field     | Type        | Null | Key | Default | Extra          |
++-----------+-------------+------+-----+---------+----------------+
+| id        | int(11)     | NO   | PRI | NULL    | auto_increment |
+| fecha_nac | date        | NO   |     | NULL    |                |
+| nom       | varchar(10) | YES  |     | NULL    |                |
+| apell     | varchar(10) | YES  |     | NULL    |                |
++-----------+-------------+------+-----+---------+----------------+
+4 rows in set (0.001 sec)
+
+MariaDB [t1]> alter table persona_mod
+    -> drop fecha_nac;
+Query OK, 0 rows affected (0.273 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [t1]> alter table persona_mod
+    -> add fecha_nac date not null;
+Query OK, 0 rows affected (0.512 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [t1]> desc persona_mod;
++-----------+-------------+------+-----+---------+----------------+
+| Field     | Type        | Null | Key | Default | Extra          |
++-----------+-------------+------+-----+---------+----------------+
+| id        | int(11)     | NO   | PRI | NULL    | auto_increment |
+| nom       | varchar(10) | YES  |     | NULL    |                |
+| apell     | varchar(10) | YES  |     | NULL    |                |
+| fecha_nac | date        | NO   |     | NULL    |                |
++-----------+-------------+------+-----+---------+----------------+
+4 rows in set (0.001 sec)
+
+MariaDB [t1]> alter table persona_mod
+    -> rename column id to id_persona;
+Query OK, 0 rows affected (0.425 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [t1]> desc table persona_mod;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'table persona_mod' at line 1
+MariaDB [t1]> desc persona_mod;
++------------+-------------+------+-----+---------+----------------+
+| Field      | Type        | Null | Key | Default | Extra          |
++------------+-------------+------+-----+---------+----------------+
+| id_persona | int(11)     | NO   | PRI | NULL    | auto_increment |
+| nom        | varchar(10) | YES  |     | NULL    |                |
+| apell      | varchar(10) | YES  |     | NULL    |                |
+| fecha_nac  | date        | NO   |     | NULL    |                |
++------------+-------------+------+-----+---------+----------------+
+4 rows in set (0.001 sec)
+
+MariaDB [t1]> alter table persona_mod 
+    -> change nom nombre varchar(50) not nul;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'nul' at line 2
+MariaDB [t1]> alter table persona_mod
+    -> change nom nombre varchar(50) not null;
+Query OK, 0 rows affected (0.528 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [t1]> alter table persona_mod
+    -> change apell apellido_pat varchar (50) not null;
+Query OK, 0 rows affected (0.291 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [t1]> alter table persona_mod
+    -> add apellido_mat varchar(50) after apellido_pat;
+Query OK, 0 rows affected (0.510 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [t1]> desc persona_mod;
++--------------+-------------+------+-----+---------+----------------+
+| Field        | Type        | Null | Key | Default | Extra          |
++--------------+-------------+------+-----+---------+----------------+
+| id_persona   | int(11)     | NO   | PRI | NULL    | auto_increment |
+| nombre       | varchar(50) | NO   |     | NULL    |                |
+| apellido_pat | varchar(50) | NO   |     | NULL    |                |
+| apellido_mat | varchar(50) | YES  |     | NULL    |                |
+| fecha_nac    | date        | NO   |     | NULL    |                |
++--------------+-------------+------+-----+---------+----------------+
+5 rows in set (0.001 sec)
+
+MariaDB [t1]> alter table persona_mod rename to persona_modificada;
+Query OK, 0 rows affected (0.372 sec)
+
+MariaDB [t1]> show tables;
++--------------------+
+| Tables_in_t1       |
++--------------------+
+| Persona            |
+| copia_Persona      |
+| copia_actor        |
+| customer2          |
+| empleado           |
+| persona_datos      |
+| persona_datos2     |
+| persona_modificada |
+| playera            |
+| vehiculo           |
+| vehiculo2          |
++--------------------+
+11 rows in set (0.001 sec)
+
+MariaDB [t1]> create table estudiante(
+    -> id_es int,
+    -> nombre varchar(10),
+    -> apellidos varchar(50) not null,
+    -> carrera varchar(50));
+Query OK, 0 rows affected (0.112 sec)
+
+MariaDB [t1]> alter table estudiante
+    -> change id_es id_estudiante key auto_increment;
+ERROR 4161 (HY000): Unknown data type: 'key'
+MariaDB [t1]> alter table estudiante
+    -> change id_es id_estudiante int key auto_increment;
+Query OK, 0 rows affected (0.291 sec)              
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [t1]> alter table estudiante
+    -> add fecha_nacimiento date after apellidos;
+Query OK, 0 rows affected (0.234 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [t1]> alter table estudiante
+    -> nombre varchar(50) not null;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'varchar(50) not null' at line 2
+MariaDB [t1]> alter table estudiante
+    -> change nombre varchar(50) not null;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'varchar(50) not null' at line 2
+MariaDB [t1]> alter table estudiante
+    -> change nombre nombre varchar(50) not null;
+Query OK, 0 rows affected (0.503 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [t1]> alter table estudiante 
+    -> change apellidos apellido_pat varchar(50) not null;
+Query OK, 0 rows affected (0.214 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [t1]> alter table estudiante 
+    -> add apellido_mat varchar(50) not null after apellido_pat;
+Query OK, 0 rows affected (0.495 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [t1]> alter table estudiante rename matricula;
+Query OK, 0 rows affected (0.116 sec)
+
+MariaDB [t1]> desc matricula;
++------------------+-------------+------+-----+---------+----------------+
+| Field            | Type        | Null | Key | Default | Extra          |
++------------------+-------------+------+-----+---------+----------------+
+| id_estudiante    | int(11)     | NO   | PRI | NULL    | auto_increment |
+| nombre           | varchar(50) | NO   |     | NULL    |                |
+| apellido_pat     | varchar(50) | NO   |     | NULL    |                |
+| apellido_mat     | varchar(50) | NO   |     | NULL    |                |
+| fecha_nacimiento | date        | YES  |     | NULL    |                |
+| carrera          | varchar(50) | YES  |     | NULL    |                |
++------------------+-------------+------+-----+---------+----------------+
+6 rows in set (0.000 sec)
+
+MariaDB [t1]> alter table matricula
+    -> change fecha_nacimiento fecha_nacimiento date not null;
+Query OK, 0 rows affected (0.825 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [t1]> alter table matricula
+    -> change carrera carrera varchar(50) not null;
+Query OK, 0 rows affected (0.338 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [t1]> desc matricula;
++------------------+-------------+------+-----+---------+----------------+
+| Field            | Type        | Null | Key | Default | Extra          |
++------------------+-------------+------+-----+---------+----------------+
+| id_estudiante    | int(11)     | NO   | PRI | NULL    | auto_increment |
+| nombre           | varchar(50) | NO   |     | NULL    |                |
+| apellido_pat     | varchar(50) | NO   |     | NULL    |                |
+| apellido_mat     | varchar(50) | NO   |     | NULL    |                |
+| fecha_nacimiento | date        | NO   |     | NULL    |                |
+| carrera          | varchar(50) | NO   |     | NULL    |                |
++------------------+-------------+------+-----+---------+----------------+
+6 rows in set (0.001 sec)
+
+MariaDB [t1]> ^C
+MariaDB [t1]> 
