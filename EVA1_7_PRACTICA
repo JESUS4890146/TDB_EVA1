@@ -1,0 +1,182 @@
+jisus@linuxjisus ~]$ sudo mysql
+[sudo] contraseña para jisus: 
+mysql: Deprecated program name. It will be removed in a future release, use '/usr/bin/mariadb' instead
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 3
+Server version: 12.3.2-MariaDB Arch Linux
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> use t1;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+MariaDB [t1]> create table item(
+    -> id_item int key auto_increment,
+    -> item_number varchar(50),
+    -> item name varchar(50));
+ERROR 4161 (HY000): Unknown data type: 'name'
+MariaDB [t1]> create table item(id_item int key auto_increment,item_number varchar(50),item_name varchar(50));
+Query OK, 0 rows affected (0.232 sec)
+
+MariaDB [t1]> create table cust(
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 1
+MariaDB [t1]> create table ordenes(
+    -> id_orden int key auto_increment,
+    -> so_number int,
+    -> Qty_ordered int);
+Query OK, 0 rows affected (0.124 sec)
+
+MariaDB [t1]> create table cust(
+    -> id_cust int key auto_increment,
+    -> cust_code varchar(50),
+    -> cust_name varchar(50));
+Query OK, 0 rows affected (0.148 sec)
+
+MariaDB [t1]> show tables;
++--------------------+
+| Tables_in_t1       |
++--------------------+
+| Persona            |
+| copia_Persona      |
+| copia_actor        |
+| cust               |
+| customer2          |
+| empleado           |
+| item               |
+| matricula          |
+| ordenes            |
+| persona_datos      |
+| persona_datos2     |
+| persona_modificada |
+| playera            |
+| vehiculo           |
+| vehiculo2          |
++--------------------+
+15 rows in set (0.001 sec)
+
+MariaDB [t1]> desc item;
++-------------+-------------+------+-----+---------+----------------+
+| Field       | Type        | Null | Key | Default | Extra          |
++-------------+-------------+------+-----+---------+----------------+
+| id_item     | int(11)     | NO   | PRI | NULL    | auto_increment |
+| item_number | varchar(50) | YES  |     | NULL    |                |
+| item_name   | varchar(50) | YES  |     | NULL    |                |
++-------------+-------------+------+-----+---------+----------------+
+3 rows in set (0.001 sec)
+
+MariaDB [t1]> desc ordenes;
++-------------+---------+------+-----+---------+----------------+
+| Field       | Type    | Null | Key | Default | Extra          |
++-------------+---------+------+-----+---------+----------------+
+| id_orden    | int(11) | NO   | PRI | NULL    | auto_increment |
+| so_number   | int(11) | YES  |     | NULL    |                |
+| Qty_ordered | int(11) | YES  |     | NULL    |                |
++-------------+---------+------+-----+---------+----------------+
+3 rows in set (0.001 sec)
+
+MariaDB [t1]> desc cust;
++-----------+-------------+------+-----+---------+----------------+
+| Field     | Type        | Null | Key | Default | Extra          |
++-----------+-------------+------+-----+---------+----------------+
+| id_cust   | int(11)     | NO   | PRI | NULL    | auto_increment |
+| cust_code | varchar(50) | YES  |     | NULL    |                |
+| cust_name | varchar(50) | YES  |     | NULL    |                |
++-----------+-------------+------+-----+---------+----------------+
+3 rows in set (0.001 sec)
+
+MariaDB [t1]> alter table item modify item_numbe not null;
+ERROR 4161 (HY000): Unknown data type: 'not'
+MariaDB [t1]> alter table item modify item_number varchar(50) not null,item_name varchar(50) not null;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'varchar(50) not null' at line 1
+MariaDB [t1]> alter table item modify item_number varchar(50) not null;
+Query OK, 0 rows affected (0.301 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [t1]> alter table item modify item_name varchar(50) not null;
+Query OK, 0 rows affected (0.262 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [t1]> alter table ordenes so_number varchar(50) not null;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'varchar(50) not null' at line 1
+MariaDB [t1]> alter table ordenes modify so_number varchar(50) not null;
+Query OK, 0 rows affected (0.327 sec)              
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [t1]> alter table ordenes modify Qty_ordered int not null;
+Query OK, 0 rows affected (0.264 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [t1]> alter table ordenes so_number int not null;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'int not null' at line 1
+MariaDB [t1]> alter table ordenes modify so_number int not null;
+Query OK, 0 rows affected (0.280 sec)              
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [t1]> alter table cust modify cust_code varchar(50) not null;
+Query OK, 0 rows affected (0.257 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [t1]> alter table cust modify cust_name varchar(50) not null;
+Query OK, 0 rows affected (0.261 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [t1]> desc item;
++-------------+-------------+------+-----+---------+----------------+
+| Field       | Type        | Null | Key | Default | Extra          |
++-------------+-------------+------+-----+---------+----------------+
+| id_item     | int(11)     | NO   | PRI | NULL    | auto_increment |
+| item_number | varchar(50) | NO   |     | NULL    |                |
+| item_name   | varchar(50) | NO   |     | NULL    |                |
++-------------+-------------+------+-----+---------+----------------+
+3 rows in set (0.001 sec)
+
+MariaDB [t1]> desc ordenes;
++-------------+---------+------+-----+---------+----------------+
+| Field       | Type    | Null | Key | Default | Extra          |
++-------------+---------+------+-----+---------+----------------+
+| id_orden    | int(11) | NO   | PRI | NULL    | auto_increment |
+| so_number   | int(11) | NO   |     | NULL    |                |
+| Qty_ordered | int(11) | NO   |     | NULL    |                |
++-------------+---------+------+-----+---------+----------------+
+3 rows in set (0.001 sec)
+
+MariaDB [t1]> desc cust;
++-----------+-------------+------+-----+---------+----------------+
+| Field     | Type        | Null | Key | Default | Extra          |
++-----------+-------------+------+-----+---------+----------------+
+| id_cust   | int(11)     | NO   | PRI | NULL    | auto_increment |
+| cust_code | varchar(50) | NO   |     | NULL    |                |
+| cust_name | varchar(50) | NO   |     | NULL    |                |
++-----------+-------------+------+-----+---------+----------------+
+3 rows in set (0.001 sec)
+
+MariaDB [t1]> insert into desc(item_number,item_name)
+    -> values("2010-0050","formed handlebar"),("1000-1","20 in bicycle"),("1002-1","24 in bycicle"),("1001-1","26 in bycicle"),("1003-1","20 in bycicle");
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'desc(item_number,item_name)
+values("2010-0050","formed handlebar"),("1000-1",...' at line 1
+
+MariaDB [t1]> alter table ordenes add column cust_code varchar(50) not null;alter table ordenes add column item_number varchar(50) not null;
+Query OK, 0 rows affected (0.331 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+Query OK, 0 rows affected (0.155 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [t1]> insert into cust (cust_code, cust_name) values('wheel', 'wheelaway cycle center'),('etc', 'bikes et cetera'),('ibs', 'inter. bicycle sales');
+Query OK, 3 rows affected (0.063 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+MariaDB [t1]> insert into item (item_number, item_name) values('2010-0050', 'formed handlebar'),('1000-1', '20 in. bicycle'),('1002-1', '24 in. bicycle'),('1001-1', '26 in. bicycle'),('1003-1', '20 in. bicycle'),('3961-1041', 'tire tube, 26 in.'),('3965-1050', 'spoke reflector');
+Query OK, 7 rows affected (0.065 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+MariaDB [t1]> insert into ordenes (so_number, qty_ordered, cust_code, item_number) values(1010, 2, 'wheel', '2010-0050'),(1010, 5, 'wheel', '1000-1'),(1011, 5, 'etc', '1002-1'),(1011, 10, 'etc', '1001-1'),(1012, 5, 'wheel', '1003-1'),(1012, 10, 'wheel', '1001-1'),(1013, 50, 'ibs', '1001-1'),(1014, 25, 'etc', '1003-1'),(1015, 25, 'wheel', '1003-1'),(1016, 5, 'etc', '3961-1041'),(1016, 50, 'etc', '3965-1050'),(1016, 5, 'etc', '1003-1'),(1016, 4, 'etc', '1000-1');
+Query OK, 13 rows affected (0.043 sec)
+Records: 13  Duplicates: 0  Warnings: 0
+
+MariaDB [t1]>
